@@ -63,7 +63,7 @@ void disp_info(BootSector);
 
 void get_to_root_entry(BootSector, FILE*, int);
 
-void get_root_entries(BootSector*, FILE*, Fat32Entry*);
+void get_root_entries(BootSector*, FILE*, Fat32Entry*, Fat32Entry*);
 
 void load_boot_sector(BootSector* , FILE*);
 
