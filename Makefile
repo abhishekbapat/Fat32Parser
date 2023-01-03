@@ -1,24 +1,32 @@
-IDIR =.\\include
-CC=gcc
-CFLAGS=-I$(IDIR)
+CC 	:= gcc
 
-ODIR=obj
-BIN=bin
+CURR 	:= $(shell pwd)
+INCDIR	:= $(CURR)/include
+OBJDIR	:= $(CURR)/obj
+BINDIR 	:= $(CURR)/bin
+SRCDIR	:= $(CURR)/src
 
-_DEPS = fat32parser.h
-DEPS = $(patsubst %,$(IDIR)\\%,$(_DEPS))
+BIN	:= $(BINDIR)/fat32parser
+INCLUDE	:= $(wildcard $(INCDIR)/*.h)
+SRC	:= $(wildcard $(SRCDIR)/*.c)
 
-_OBJ = fat32parser.o main.o
-OBJ = $(patsubst %,$(ODIR)\\%,$(_OBJ))
+_OBJ	:= main.o fat32parser.o
+OBJ	:= $(patsubst %,$(OBJDIR)/%,$(_OBJ))
 
-$(ODIR)\\%.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+all: MKDIR $(BIN)
 
-$(BIN)\\fat32parser.exe: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS)
+MKDIR:
+	mkdir obj
+	mkdir bin
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	$(CC) -c -o $@ $< -I$(INCDIR)
+
+$(BIN): $(OBJ)
+	$(CC) -o $@ $^
 
 .PHONY: clean
 
 clean:
-	del $(ODIR)\\*.o
-	del $(BIN)\\*.exe
+	rm -rf $(OBJDIR)
+	rm -rf $(BINDIR)

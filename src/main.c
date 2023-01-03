@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "include\fat32parser.h"
+#include <fat32parser.h>
 
 
 int main(int argc, char **argv)

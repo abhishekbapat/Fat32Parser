@@ -1,5 +1,4 @@
-#include "include\fat32parser.h"
-
+#include <fat32parser.h>
 
 void disp_info(BootSector boot_sector){// used in LoadBootSector
     printf("Bytes per sector: %d bytes\n",boot_sector.bytes_per_sector);
@@ -51,7 +50,7 @@ void get_root_entries(BootSector* bs, FILE* fat32img, Fat32Entry *fat32_file_ent
     int dir_count = 0;
     int index = 0;
     DirEntry cur_dir_entry;
-    printf("Browsing the root directory.\n")
+    printf("Browsing the root directory.\n");
     while(1){
         get_to_root_entry(*bs, fat32img, index);
         fread(&cur_dir_entry, sizeof(DirEntry),1,fat32img);
